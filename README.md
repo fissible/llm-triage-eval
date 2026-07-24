@@ -6,6 +6,8 @@ MuleSoft/CloudHub-style logs, classifies each failure into a root-cause taxonomy
 and — crucially — *measures* whether an LLM actually beats a cheap rule-based
 baseline at that job before trusting it with anything.
 
+![Integration Triage dashboard](docs/dashboard.png)
+
 The reusable idea: **build the eval harness first, then let the numbers decide
 where (and whether) the LLM belongs.** A labeled "golden set" of real failures
 also doubles as a **migration-acceptance suite** if the same functionality later
@@ -31,6 +33,7 @@ composer install
 cp .env.example .env && php artisan key:generate   # first time only
 php artisan migrate --force
 php artisan triage:import        # load the golden set into SQLite
+php artisan triage:import-events database/golden/example-events.jsonl  # optional: cross-app events for the Correlations view
 php artisan serve                # → http://127.0.0.1:8000/admin
 ```
 
