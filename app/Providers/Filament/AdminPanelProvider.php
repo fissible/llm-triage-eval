@@ -26,6 +26,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->brandName('Integration Triage')
             ->login()
             ->sidebarWidth('13rem')
             ->maxContentWidth(Width::Full)

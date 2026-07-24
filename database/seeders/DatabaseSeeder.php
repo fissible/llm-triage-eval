@@ -15,11 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Local dev admin for the Filament panel (matches README).
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Admin',
+            'email' => 'admin@triage.test',
+            'password' => bcrypt('password'),
         ]);
     }
 }
