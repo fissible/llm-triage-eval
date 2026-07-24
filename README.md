@@ -1,5 +1,7 @@
 # llm-triage-eval
 
+[![Tests](https://github.com/fissible/llm-triage-eval/actions/workflows/tests.yml/badge.svg)](https://github.com/fissible/llm-triage-eval/actions/workflows/tests.yml)
+
 LLM-powered **failure taxonomy and triage for an integration layer**, with an
 **eval harness at its core** and a Filament admin UI on top. It ingests
 MuleSoft/CloudHub-style logs, classifies each failure into a root-cause taxonomy,
