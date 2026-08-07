@@ -27,7 +27,7 @@ class IngestLogs extends Page implements HasForms
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedArrowUpTray;
 
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 40;
 
     // Constrain this form page; wide tables (Correlations, Golden Cases) stay full-width.
     protected Width|string|null $maxContentWidth = Width::FourExtraLarge;
