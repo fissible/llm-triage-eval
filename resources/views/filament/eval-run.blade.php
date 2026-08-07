@@ -12,7 +12,6 @@
         sort($labels);
         $max = 1;
         foreach ($confusion as $row) { foreach ($row as $c) { $max = max($max, $c); } }
-        $abbr = fn ($l) => strtoupper(implode('', array_map(fn ($w) => $w[0] ?? '', explode('_', $l))));
         $tile = 'flex:1;min-width:8rem;border:1px solid rgba(128,128,128,.25);border-radius:.5rem;padding:.75rem 1rem;';
     @endphp
 
@@ -40,28 +39,28 @@
 
     <x-filament::section>
         <x-slot name="heading">Confusion matrix</x-slot>
-        <x-slot name="description">Rows = gold label · columns = model prediction (abbreviated, same order as rows). Green = correct, red = confusions.</x-slot>
+        <x-slot name="description">Rows = gold label · columns = model prediction. Columns are numbered to match the row labels (same order). Green diagonal = correct, red = confusions.</x-slot>
         <div style="overflow-x:auto;">
             <table style="border-collapse:collapse;font-size:.75rem;font-family:ui-monospace,monospace;">
                 <thead>
                     <tr>
                         <th></th>
                         @foreach ($labels as $p)
-                            <th style="padding:.25rem;font-weight:700;" title="{{ $p }}">{{ $abbr($p) }}</th>
+                            <th style="padding:.25rem;font-weight:700;min-width:1.8rem;" title="{{ $p }}">{{ $loop->iteration }}</th>
                         @endforeach
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($labels as $g)
                         <tr>
-                            <th style="text-align:right;padding:.25rem .5rem;font-weight:600;white-space:nowrap;">{{ $g }}</th>
+                            <th style="text-align:right;padding:.25rem .5rem;font-weight:600;white-space:nowrap;"><span style="opacity:.5;">{{ $loop->iteration }}.</span> {{ $g }}</th>
                             @foreach ($labels as $p)
                                 @php
                                     $c = $confusion[$g][$p] ?? 0;
                                     $alpha = $c ? round(0.18 + 0.82 * $c / $max, 2) : 0;
                                     $bg = $c ? ($g === $p ? "rgba(34,197,94,$alpha)" : "rgba(239,68,68,$alpha)") : 'transparent';
                                 @endphp
-                                <td style="width:2.3rem;height:2.3rem;text-align:center;border:1px solid rgba(128,128,128,.15);background:{{ $bg }};">{{ $c ?: '' }}</td>
+                                <td style="width:2.3rem;height:2.3rem;text-align:center;border:1px solid rgba(128,128,128,.15);background:{{ $bg }};" title="gold {{ $g }} → pred {{ $p }}: {{ $c }}">{{ $c ?: '' }}</td>
                             @endforeach
                         </tr>
                     @endforeach

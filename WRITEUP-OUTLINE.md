@@ -15,8 +15,9 @@ below has the specific numbers/decisions to expand into prose or slides.
   proved the LLM was *not* worth it for classification (or structured extraction).
 - **Net:** deterministic rules/parser do classification + extraction (cheap, fast,
   local, $0); the LLM is used for **one** thing — plain-English incident summaries.
-- **Headline numbers:** classification rules **89.7%** vs LLM **87.9%** (58 reviewed
-  cases); extraction LLM ↔ details-aware regex agree **90–97%** on structured fields;
+- **Headline numbers:** classification is a tie — LLM **89.7%** (52/58) vs rules
+  **87.9%** (51/58), one case apart (58 reviewed cases); extraction LLM ↔ details-aware
+  regex agree **90–97%** on structured fields;
   summaries scored **4.62/5 faithfulness** (judge human-validated: within-1 100%, κ 0.57).
   All local (gemma3:12b via Ollama), ~$0.
 
@@ -103,8 +104,9 @@ below has the specific numbers/decisions to expand into prose or slides.
   objective axis and not the subjective one — and I only cite the validated number.
 
 ## 6. Findings (with numbers — the heart)
-- **Classification: rules 89.7% ≥ LLM 87.9%** (58 reviewed, Doctrine-A gold, gemma3:12b).
-  The LLM adds nothing over regex here.
+- **Classification: LLM 89.7% (52/58) vs rules 87.9% (51/58)** — a one-case tie (58
+  reviewed, Doctrine-A gold, gemma3:12b). The LLM adds nothing a free regex baseline
+  doesn't already deliver, so the cheap classifier wins on cost/latency.
 - **Prompt engineering didn't move the needle:** v1 = v2 = v3 = 89.7%. The **+8.7-point
   jump (81%→89.7%) came from getting the labeling *doctrine* coherent**, not from prompts.
 - **The harness caught a bug in *itself*:** `--prompt=v2` only relabeled the report; the

@@ -17,10 +17,12 @@ Everything below is **measured**, not asserted — that's the point of the harne
 
 ## Headline conclusions
 
-1. **Use cheap deterministic rules to *classify* failures — not the LLM.**
-   On 58 human-reviewed real failures, a rule-based classifier scored **89.7%** vs
-   **87.9%** for a local 12B LLM (`gemma3:12b`). For classification on this taxonomy,
-   the LLM adds nothing over regex.
+1. **Use cheap deterministic rules to *classify* failures — the LLM is a wash.**
+   On 58 human-reviewed real failures, a local 12B LLM (`gemma3:12b`) scored **89.7%**
+   (52/58) and a rule-based classifier scored **87.9%** (51/58) — a **one-case
+   difference**, i.e. a statistical tie. When an LLM can't clear a zero-cost regex
+   baseline by more than a single case, it earns no place in classification; use the
+   rules.
 
 2. **A details-aware regex parser also handles *structured* extraction — the LLM's
    edge there is unproven.** With a shallow parser the LLM looked far better (it dug
@@ -73,8 +75,12 @@ set as the migration regression suite regardless.
 
 | | Accuracy (58 reviewed cases) |
 |---|---|
-| Rule-based classifier | **89.7%** |
-| LLM (`gemma3:12b`) | 87.9% |
+| LLM (`gemma3:12b`) | **89.7%** (52/58) |
+| Rule-based classifier | 87.9% (51/58) |
+
+A one-case gap (52 vs 51) — a tie within noise. The takeaway isn't "the LLM wins";
+it's that the LLM only *matches* a free, instant baseline, so it isn't worth its cost
+or latency for classification.
 
 Prompt iteration (v1→v2→v3) made **no** net difference — the win came entirely from
 getting the *labeling doctrine* coherent, not from prompt engineering. Remaining
